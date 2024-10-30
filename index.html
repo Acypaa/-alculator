@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Примитивный Калькулятор</title>
+</head>
+<body>
+  <h2 style="text-align: center;">Калькулятор</h2>
+  <div class="calculator" align="center">
+    <input type="text" id="inputField" disabled placeholder="0" style="width: 170px; height: 30px; text-align: right; margin-bottom: 10px; font-size: 16px;">
+    <div>
+      <button onclick="appendInput('7')" style="width: 40px; height: 40px;">7</button>
+      <button onclick="appendInput('8')" style="width: 40px; height: 40px;">8</button>
+      <button onclick="appendInput('9')" style="width: 40px; height: 40px;">9</button>
+      <button onclick="appendInput('/')" style="width: 40px; height: 40px;">/</button><br>
+      <button onclick="appendInput('4')" style="width: 40px; height: 40px;">4</button>
+      <button onclick="appendInput('5')" style="width: 40px; height: 40px;">5</button>
+      <button onclick="appendInput('6')" style="width: 40px; height: 40px;">6</button>
+      <button onclick="appendInput('*')" style="width: 40px; height: 40px;">*</button><br>
+      <button onclick="appendInput('1')" style="width: 40px; height: 40px;">1</button>
+      <button onclick="appendInput('2')" style="width: 40px; height: 40px;">2</button>
+      <button onclick="appendInput('3')" style="width: 40px; height: 40px;">3</button>
+      <button onclick="appendInput('-')" style="width: 40px; height: 40px;">-</button><br>
+      <button onclick="appendInput('0')" style="width: 40px; height: 40px;">0</button>
+      <button onclick="clearInput()" style="width: 40px; height: 40px;">C</button>
+      <button onclick="calculate()" style="width: 40px; height: 40px;">=</button>
+      <button onclick="appendInput('+')" style="width: 40px; height: 40px;">+</button>
+    </div>
+    <div id="history" align="left" style="width: 200px; margin-top: 10px; padding-top: 10px; padding-left: 25px; font-size: 14px;">
+      <p><b>История действий:</b></p>
+    </div>
+  </div>
+
+  <script>
+    function appendInput(value) {
+      document.getElementById('inputField').value += value;
+    }
+
+    function clearInput() {
+      document.getElementById('inputField').value = '';
+    }
+
+    function calculate() {
+      const inputField = document.getElementById('inputField');
+      const expression = inputField.value;
+      try {
+        const result = eval(expression);
+        inputField.value = result;
+        addToHistory(`${expression} = ${result}`);
+      } catch (error) {
+        inputField.value = 'Ошибка';
+      }
+    }
+    function addToHistory(record) {
+      const historyDiv = document.getElementById('history');
+      const newRecord = document.createElement('div');
+      newRecord.textContent = record;
+      historyDiv.appendChild(newRecord);
+    }
+  </script>
+</body>
+</html>
